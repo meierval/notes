@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Note taking App",
   "main": "public/index.html",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/meierval/notes.git"
