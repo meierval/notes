@@ -1,0 +1,15 @@
+{
+  "name": "notes",
+  "version": "1.0.0",
+  "description": "Note taking App",
+  "main": "public/index.html",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meierval/notes.git"
+  },
+  "author": "Valentin Meier",
+  "bugs": {
+    "url": "https://github.com/meierval/notes/issues"
+  },
+  "homepage": "https://github.com/meierval/notes#readme"
+}
