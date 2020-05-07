@@ -1,20 +1,17 @@
-# NOTES
+# NOTES :memo:
 
 VanillaJS notes taking app created as part of the HSR CAS Frontend Engineering.
 
+## Getting Started
 
-# Getting Started
-
-## Prerequisites
+### Prerequisites
 
 You will need the following:
+
 - Node.js
 
-## Installation
+### Installation
 
-## Running it
+### Running it
 
-## Running the tests
-
-# License
-
+### Running the tests
