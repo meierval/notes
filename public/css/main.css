@@ -1,0 +1,235 @@
+@font-face {
+  font-family: 'josefin';
+  src: url('./../assets/fonts/josefin/JosefinSans-VariableFont_wght.ttf')
+    format('truetype');
+}
+
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --yellow: #f8f32b;
+  --very-light-gray: #e0e0e2;
+  --light-gray: #8d99ae;
+  --dark-gray: #2b2d42;
+  --red: #ff8552;
+  --blue: #297373;
+
+  --main-font: Verdana, Arial;
+  --title-font: josefin;
+  --main-font-size: 1.6rem;
+
+  font-size: 62.5%;
+}
+
+.light-theme {
+  --background-color: var(--very-light-gray);
+  --title-color: var(--dark-gray);
+  --topline-color: var(--yellow);
+  --main-color: var(--dark-gray);
+  --secondary-color: var(--light-gray);
+  --note-color: var(--white);
+}
+
+.dark-theme {
+  --background-color: var(--dark-gray);
+  --topline-color: var(--yellow);
+  --title-color: var(--very-light-gray);
+  --main-color: var(--white);
+  --secondary-color: var(--dark-gray);
+  --note-color: var(--light-gray);
+}
+
+body {
+  display: grid;
+  grid-template-columns:
+    minmax(10px, auto)
+    minmax(1000px, 1400px)
+    minmax(10px, auto);
+  grid-template-rows: 10px auto auto auto auto;
+  grid-column-gap: 0;
+  grid-template-areas:
+    'top-line top-line top-line'
+    '. header .'
+    '. nav .'
+    '. content .'
+    '. footer .';
+  margin: 0;
+  background-color: var(--background-color);
+  font-family: var(--main-font);
+  font-size: var(--main-font-size);
+  color: var(--main-color);
+}
+
+.top-line {
+  grid-area: top-line;
+  background-color: var(--topline-color);
+}
+
+header {
+  grid-area: header;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 20px 1fr;
+}
+
+header > button {
+  justify-self: end;
+  align-self: start;
+  background: none;
+  border: none;
+  margin-top: 5px;
+  margin-bottom: 50px;
+}
+
+header > h1 {
+  justify-self: center;
+  align-self: center;
+  font-size: 10rem;
+  font-family: var(--title-font);
+  color: var(--title-color);
+  border: 0.7rem solid var(--title-color);
+}
+
+main {
+  grid-area: content;
+  display: flex;
+  flex-direction: column;
+}
+
+main > article {
+  display: grid;
+  grid-template-columns: 35px 10fr auto auto;
+  grid-template-rows: auto auto 20px;
+  grid-row-gap: 20px;
+  align-items: center;
+  grid-template-areas:
+    'importance title creation-date status'
+    'content content content content'
+    '.  . save-button cancel-button';
+  background-color: var(--note-color);
+  box-shadow: 1px 1px 1px 0 var(--secondary-color);
+  margin-bottom: 30px;
+  padding: 1rem 2rem 1rem 2rem;
+}
+
+article > .importance {
+  grid-area: importance;
+  justify-self: center;
+  font-size: 1.8rem;
+  color: var(--red);
+}
+
+article > h2 {
+  grid-area: title;
+  font-size: 2rem;
+  justify-self: left;
+}
+
+article > .creation-date {
+  grid-area: creation-date;
+  justify-self: right;
+  background-color: var(--secondary-color);
+  color: var(--note-color);
+  padding: 1px;
+  border: 1px solid var(--secondary-color);
+  border-radius: 7px;
+}
+
+article > .status {
+  grid-area: status;
+  justify-self: right;
+}
+
+article > p {
+  grid-area: content;
+  margin: 0;
+}
+
+button {
+  font-size: 2rem;
+  background-color: transparent;
+  border: 1px solid var(--main-color);
+  color: var(--main-color);
+  padding: 5px;
+}
+
+article > .save-button {
+  grid-area: save-button;
+  justify-self: right;
+  margin-right: 10px;
+}
+
+article > .cancel-button {
+  grid-area: cancel-button;
+  justify-self: right;
+}
+
+nav {
+  grid-area: nav;
+}
+
+footer {
+  grid-area: footer;
+}
+
+/* Inputs styling */
+input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+input[type='checkbox'] {
+  display: none;
+}
+
+.status > label {
+  position: relative;
+}
+
+.status span::before,
+.status span::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.status span.checkbox::before {
+  width: 25px;
+  height: 25px;
+  padding: 1px;
+  border: 1px solid var(--secondary-color);
+  border-radius: 7px;
+  left: -35px;
+  top: 2px;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.status span.checkbox:hover::before {
+  border: 1px solid var(--main-color);
+}
+
+.status span.checkbox::after {
+  width: 25px;
+  height: 25px;
+  content: '✔️';
+  font-size: 14px;
+  left: -31px;
+  top: 7px;
+  color: transparent;
+  transition: color 0.2s;
+}
+
+input[type='checkbox']:checked + label span.checkbox::after {
+  color: var(--yellow);
+}
+
+/* Icons */
+* {
+  --check-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='16' height='16'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z'/%3E%3C/svg%3E");
+}
