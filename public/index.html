@@ -3,7 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <title>notes</title>
-    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="stylesheets/main.css" />
+
+    <script id="notes-list-template" type="text/x-handlebars-template">
+      {{#each notes}}
+        <article>
+          <div class="importance">{{importance}}</div>
+          <h2>{{title}}</h2>
+          <div class="creation-date">{{creationDateTime}}</div>
+          <div class="status">
+            <input type="checkbox" class="status" id="status-checkbox-{{id}}" {{#if isDone}}checked{{/if}} />
+            <label for="status-checkbox-{{id}}"><span class="checkbox"></span> </label>
+          </div>
+          <p>{{content}}</p>
+          <button type="button" class="save-button" data-note-id="{{id}}">Save</button>
+          <button type="button" class="cancel-button">Cancel</button>
+        </article>
+      {{/each}}
+      {{#unless notes.length}}
+        No notes.
+      {{/unless}}
+    </script>
   </head>
   <body class="light-theme">
     <div class="top-line"></div>
@@ -12,55 +32,17 @@
       <h1>NOTES</h1>
     </header>
 
-    <nav>
-      nav
-    </nav>
+    <nav></nav>
 
-    <main>
-      <article>
-        <div class="importance">!!!</div>
-        <h2>First Note</h2>
-        <div class="creation-date">1 / 2 / 2020 17:46</div>
-        <div class="status">
-          <input type="checkbox" class="status" id="status-checkbox-1" />
-          <label for="status-checkbox-1"><span class="checkbox"></span> </label>
-        </div>
-        <p>This is the actual content of the note here. blablabla</p>
-        <button type="button" class="save-button">Save</button>
-        <button type="button" class="cancel-button">Cancel</button>
-      </article>
-
-      <article>
-        <div class="importance">!</div>
-        <h2>This is the title of the second note</h2>
-        <div class="creation-date">1 / 2 / 2020 17:46</div>
-        <div class="status">
-          <input type="checkbox" class="status" id="status-checkbox-2" />
-          <label for="status-checkbox-2"><span class="checkbox"></span> </label>
-        </div>
-        <p>This is the actual content of the note here. blablabla</p>
-        <button class="save-button">Save</button>
-        <button class="cancel-button">Cancel</button>
-      </article>
-
-      <article>
-        <div class="importance">!!</div>
-        <h2>This here could be the third note</h2>
-        <div class="creation-date">1 / 2 / 2020 17:46</div>
-        <div class="status">
-          <input type="checkbox" class="status" id="status-checkbox-3" />
-          <label for="status-checkbox-3"><span class="checkbox"></span> </label>
-        </div>
-        <p>This is the actual content of the note here. blablabla</p>
-        <button class="save-button">Save</button>
-        <button class="cancel-button">Cancel</button>
-      </article>
-    </main>
+    <main id="notes-container"></main>
 
     <footer>
       <p>&lt/source&gt</p>
     </footer>
 
-    <script src="./js/main.js"></script>
+    <!--TODO: Replace CDN link with npm package-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js" defer></script>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/bootstrapper.js" type="module"></script>
   </body>
 </html>
