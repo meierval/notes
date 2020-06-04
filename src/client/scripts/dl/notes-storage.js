@@ -15,4 +15,8 @@ export default class NotesStorage {
     this.notes.push(note);
     localStorage.setItem(this.storageName, JSON.stringify(note));
   }
+
+  getNoteById(id) {
+    return JSON.parse(localStorage.getItem(this.storageName)).filter((note) => note.id === id)[0];
+  }
 }

@@ -7,16 +7,12 @@ export default class NotesController {
     this.notesContainer = document.getElementById('notes-container');
   }
 
-  showNotes() {
+  renderNotesView() {
     this.notesContainer.innerHTML = this.notesTemplateCompiled({ notes: this.notesService.notes });
   }
 
-  notesAction() {
+  loadAndRenderData() {
     this.notesService.loadData();
     this.renderNotesView();
-  }
-
-  renderNotesView() {
-    this.showNotes();
   }
 }

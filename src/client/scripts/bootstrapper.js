@@ -6,7 +6,7 @@ class Bootstrapper {
   static start() {
     const notesStorage = new NotesStorage();
     const notesService = new NotesService(notesStorage);
-    new NotesController(notesService).notesAction();
+    new NotesController(notesService).loadAndRenderData();
   }
 }
 
