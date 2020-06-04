@@ -12,12 +12,13 @@
         <article>
           <div class="importance">{{#times importance}}!{{/times}}</div>
           <h2>{{title}}</h2>
-          <div class="creation-date">{{creationDateTime}}</div>
+          <div class="creation-date">{{formatDate creationDateTime}}</div>
           <div class="status">
             <input type="checkbox" class="status" id="status-checkbox-{{id}}" {{#if isDone}}checked{{/if}} />
             <label for="status-checkbox-{{id}}"><span class="checkbox"></span> </label>
           </div>
           <p>{{content}}</p>
+          <div class="finished-by-date">{{formatDate toBeFinishedByDate}}</div>
           <button type="button" class="save-button" data-note-id="{{id}}">Save</button>
           <button type="button" class="cancel-button">Cancel</button>
         </article>

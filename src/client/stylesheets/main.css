@@ -104,7 +104,7 @@ main > article {
   grid-template-areas:
     'importance title creation-date status'
     'content content content content'
-    '.  . save-button cancel-button';
+    'finish-by-date finish-by-date save-button cancel-button';
   background-color: var(--note-color);
   box-shadow: 1px 1px 1px 0 var(--secondary-color);
   margin-bottom: 30px;
@@ -127,6 +127,16 @@ article > h2 {
 article > .creation-date {
   grid-area: creation-date;
   justify-self: right;
+  background-color: var(--secondary-color);
+  color: var(--note-color);
+  padding: 1px;
+  border: 1px solid var(--secondary-color);
+  border-radius: 7px;
+}
+
+article > .finish-by-date {
+  grid-area: finish-by-date;
+  justify-self: left;
   background-color: var(--secondary-color);
   color: var(--note-color);
   padding: 1px;

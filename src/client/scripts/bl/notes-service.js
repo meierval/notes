@@ -13,6 +13,7 @@ export default class NotesService {
 
     if (this.notes.length === 0) {
       this.notes.push(new Note(1, 'My first Note', 'Content of my first Note', 2, true, Date.now(), Date.now()));
+      this.notes.push(new Note(2, 'My second Note', 'Content of my second Note', 3, false, Date.now(), Date.now()));
     }
   }
 
