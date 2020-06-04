@@ -12,7 +12,7 @@ export default class NotesService {
       .map((n) => new Note(n.id, n.title, n.content, n.importance, n.isDone, n.creationDateTime, n.toBeFinishedByDate));
 
     if (this.notes.length === 0) {
-      this.notes.push(new Note(1, 'My first Note', 'Content of my first Note', 3, true, Date.now(), Date.now()));
+      this.notes.push(new Note(1, 'My first Note', 'Content of my first Note', 2, true, Date.now(), Date.now()));
     }
   }
 

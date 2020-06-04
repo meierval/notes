@@ -10,7 +10,7 @@
     <script id="notes-list-template" type="text/x-handlebars-template">
       {{#each notes}}
         <article>
-          <div class="importance">{{importance}}</div>
+          <div class="importance">{{#times importance}}!{{/times}}</div>
           <h2>{{title}}</h2>
           <div class="creation-date">{{creationDateTime}}</div>
           <div class="status">
