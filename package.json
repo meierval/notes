@@ -28,7 +28,5 @@
     "prettier": "2.0.5",
     "pretty-quick": "^2.0.1"
   },
-  "dependencies": {
-    "handlebars": "^4.7.6"
-  }
+  "dependencies": {}
 }
