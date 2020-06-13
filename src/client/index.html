@@ -9,15 +9,15 @@
 
     <script id="notes-list-template" type="text/x-handlebars-template">
       {{#each notes}}
-        <article>
+        <article class="note">
           <div class="importance">{{#times importance}}!{{/times}}</div>
-          <h2>{{title}}</h2>
+          <h2 class="title">{{title}}</h2>
           <div class="creation-date">{{formatDate creationDateTime}}</div>
           <div class="status">
             <input type="checkbox" class="status" id="status-checkbox-{{id}}" {{#if isDone}}checked{{/if}} />
             <label for="status-checkbox-{{id}}"><span class="checkbox"></span> </label>
           </div>
-          <p>{{content}}</p>
+          <p class="content">{{content}}</p>
           <div class="finished-by-date">{{formatDate toBeFinishedByDate}}</div>
           <button type="button" class="save-button" data-note-id="{{id}}">Save</button>
           <button type="button" class="cancel-button">Cancel</button>
@@ -35,9 +35,40 @@
       <h1>NOTES</h1>
     </header>
 
-    <nav></nav>
+    <nav>
+      <button type="button" id="new-note-button">Add Note</button>
+    </nav>
+    <main>
+      <form class="note" id="new-note-form">
+        <div class="importance" id="new-note-importance">!</div>
+        <input
+          class="title"
+          id="new-note-title"
+          type="text"
+          placeholder="Enter a title..."
+          minlength="3"
+          maxlength="30"
+          required
+        />
+        <input class="creation-date" id="new-note-creation-date" type="datetime-local" readonly required />
+        <div class="status">
+          <input type="checkbox" class="status" id="new-note-status" />
+          <label for="new-note-status"><span class="checkbox"></span></label>
+        </div>
+        <textarea
+          class="content"
+          id="new-note-content"
+          placeholder="Type something..."
+          minlength="1"
+          maxlength="500"
+        ></textarea>
+        <input class="finish-by-date" id="new-note-finish-by-date" type="datetime-local" required />
+        <button type="submit" class="save-button" data-action="addNote">Add</button>
+        <button type="button" class="cancel-button" id="new-note-cancel-button">Cancel</button>
+      </form>
 
-    <main id="notes-container"></main>
+      <div id="notes-container"></div>
+    </main>
 
     <footer>
       <p>&lt/source&gt</p>

@@ -17,7 +17,16 @@ export default class NotesService {
     }
   }
 
-  add(note) {
-    this.storage.add(note.toJSON());
+  addNewNote(newNoteImportance, newNoteTitle, newNoteCreationDate, newNoteStatus, newNoteContent, newNoteFinishByDate) {
+    const newNote = new Note(
+      null,
+      newNoteTitle,
+      newNoteContent,
+      newNoteImportance,
+      newNoteStatus,
+      newNoteCreationDate,
+      newNoteFinishByDate
+    );
+    this.notes.push(newNote);
   }
 }
