@@ -111,8 +111,12 @@ main {
   padding: 1rem 2rem 1rem 2rem;
 }
 
-#new-note-form {
+.note#new-note-form {
   display: none;
+  grid-template-areas:
+    'importance title title status'
+    'content content content content'
+    'finish-by-date finish-by-date save-button cancel-button';
 }
 
 .note > .importance {
