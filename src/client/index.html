@@ -18,7 +18,7 @@
             <label for="status-checkbox-{{id}}"><span class="checkbox"></span> </label>
           </div>
           <p class="content">{{content}}</p>
-          <div class="finish-by-date">{{formatDate toBeFinishedByDate}}</div>
+          <div class="finish-by-date">Finish by: {{formatDate toBeFinishedByDate}}</div>
           <button type="button" class="save-button" data-note-id="{{id}}">Save</button>
           <button type="button" class="cancel-button">Cancel</button>
         </article>
@@ -61,7 +61,9 @@
           minlength="1"
           maxlength="500"
         ></textarea>
-        <input class="finish-by-date" id="new-note-finish-by-date" type="datetime-local" required />
+        <label class="finish-by-date"
+          >Finish by: <input id="new-note-finish-by-date" type="datetime-local" required
+        /></label>
         <button type="submit" class="save-button" data-action="addNote">Add</button>
         <button type="button" class="cancel-button" id="new-note-cancel-button">Cancel</button>
       </form>
