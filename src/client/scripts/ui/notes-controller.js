@@ -67,7 +67,7 @@ export default class NotesController {
       this.countExclamationMarks(this.newNoteImportance.value),
       this.newNoteTitle.value,
       new Date(Date.now()),
-      Boolean(this.newNoteStatus.value),
+      Boolean(this.newNoteStatus.checked),
       this.newNoteContent.value,
       new Date(this.newNoteFinishByDate.value)
     );
