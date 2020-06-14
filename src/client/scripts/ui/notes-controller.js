@@ -34,13 +34,14 @@ export default class NotesController {
   }
 
   initEventHandlers() {
-    this.newNoteButton.addEventListener('click', () => this.showNewNoteForm());
-    this.newNoteCancelButton.addEventListener('click', () => this.showNewNoteForm());
+    this.newNoteButton.addEventListener('click', () => this.toggleNewNoteForm());
+    this.newNoteCancelButton.addEventListener('click', () => this.toggleNewNoteForm());
     this.newNoteForm.addEventListener('submit', (event) => this.addNewNote(event));
     this.newNoteImportance.addEventListener('click', () => this.changeImportance());
+    this.newNoteContent.addEventListener('keyup', (event) => this.adjustTextAreaSize(event));
   }
 
-  showNewNoteForm() {
+  toggleNewNoteForm() {
     if (this.newNoteForm.style.display === 'grid') {
       this.newNoteForm.style.display = 'none';
       this.newNoteButton.style.display = 'block';
@@ -64,7 +65,7 @@ export default class NotesController {
   addNewNote(event) {
     event.preventDefault();
     this.notesService.addNewNote(
-      this.countExclamationMarks(this.newNoteImportance.value),
+      this.countExclamationMarks(this.newNoteImportance.innerText),
       this.newNoteTitle.value,
       new Date(Date.now()),
       Boolean(this.newNoteStatus.checked),
@@ -72,6 +73,8 @@ export default class NotesController {
       new Date(this.newNoteFinishByDate.value)
     );
     this.showNotes();
+    this.newNoteForm.reset();
+    this.toggleNewNoteForm();
   }
 
   countExclamationMarks(text) {
@@ -82,5 +85,10 @@ export default class NotesController {
     this.notesService.loadData();
     this.showNotes();
     this.initEventHandlers();
+  }
+
+  adjustTextAreaSize(event) {
+    event.target.style.height = '1px';
+    event.target.style.height = 25 + event.target.scrollHeight + 'px';
   }
 }

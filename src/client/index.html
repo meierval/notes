@@ -18,7 +18,7 @@
             <label for="status-checkbox-{{id}}"><span class="checkbox"></span> </label>
           </div>
           <p class="content">{{content}}</p>
-          <div class="finished-by-date">{{formatDate toBeFinishedByDate}}</div>
+          <div class="finish-by-date">{{formatDate toBeFinishedByDate}}</div>
           <button type="button" class="save-button" data-note-id="{{id}}">Save</button>
           <button type="button" class="cancel-button">Cancel</button>
         </article>
@@ -31,12 +31,12 @@
   <body class="light-theme">
     <div class="top-line"></div>
     <header>
-      <button type="button" id="theme-button" value="theme-switcher">💡</button>
+      <button type="button" id="theme-button">💡</button>
       <h1>NOTES</h1>
     </header>
 
     <nav>
-      <button type="button" id="new-note-button">Add Note</button>
+      <button type="button" id="new-note-button">+</button>
     </nav>
     <main>
       <form class="note" id="new-note-form">
