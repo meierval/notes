@@ -37,6 +37,7 @@ export default class NotesController {
     this.newNoteButton.addEventListener('click', () => this.showNewNoteForm());
     this.newNoteCancelButton.addEventListener('click', () => this.showNewNoteForm());
     this.newNoteForm.addEventListener('submit', (event) => this.addNewNote(event));
+    this.newNoteImportance.addEventListener('click', () => this.changeImportance());
   }
 
   showNewNoteForm() {
@@ -49,10 +50,21 @@ export default class NotesController {
     }
   }
 
+  changeImportance() {
+    let currentImportance = this.countExclamationMarks(this.newNoteImportance.innerText);
+    let newImportance = (currentImportance + 1) % 4;
+    newImportance = newImportance === 0 ? newImportance + 1 : newImportance;
+    let newExclamationMarks = '';
+    for (let i = 0; i < newImportance; i++) {
+      newExclamationMarks = '!' + newExclamationMarks;
+    }
+    this.newNoteImportance.innerText = newExclamationMarks;
+  }
+
   addNewNote(event) {
     event.preventDefault();
     this.notesService.addNewNote(
-      ((this.newNoteImportance.value || '').match('!') || []).length,
+      this.countExclamationMarks(this.newNoteImportance.value),
       this.newNoteTitle.value,
       new Date(Date.now()),
       Boolean(this.newNoteStatus.value),
@@ -60,6 +72,10 @@ export default class NotesController {
       new Date(this.newNoteFinishByDate.value)
     );
     this.showNotes();
+  }
+
+  countExclamationMarks(text) {
+    return (text || '').split('!').length - 1;
   }
 
   notesAction() {
