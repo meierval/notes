@@ -2,24 +2,24 @@ export default class NotesController {
   constructor(notesService) {
     this.notesService = notesService;
 
-    this.notesTemplateCompiled = Handlebars.compile(document.getElementById('notes-list-template').innerHTML);
-    this.editNoteTemplateCompiled = Handlebars.compile(document.getElementById('edit-note-template').innerHTML);
+    this.notesTemplateCompiled = Handlebars.compile(document.querySelector('#notes-list-template').innerHTML);
+    this.editNoteTemplateCompiled = Handlebars.compile(document.querySelector('#edit-note-template').innerHTML);
     this.registerHandlebarsHelper();
 
-    this.notesContainer = document.getElementById('notes-container');
-    this.newNoteForm = document.getElementById('new-note-form');
-    this.newNoteImportance = document.getElementById('new-note-importance');
-    this.newNoteTitle = document.getElementById('new-note-title');
-    this.newNoteStatus = document.getElementById('new-note-status');
-    this.newNoteContent = document.getElementById('new-note-content');
-    this.newNoteFinishByDate = document.getElementById('new-note-finish-by-date');
+    this.notesContainer = document.querySelector('#notes-container');
+    this.newNoteForm = document.querySelector('#new-note-form');
+    this.newNoteImportance = document.querySelector('#new-note-importance');
+    this.newNoteTitle = document.querySelector('#new-note-title');
+    this.newNoteStatus = document.querySelector('#new-note-status');
+    this.newNoteContent = document.querySelector('#new-note-content');
+    this.newNoteFinishByDate = document.querySelector('#new-note-finish-by-date');
 
-    this.newNoteButton = document.getElementById('new-note-button');
-    this.newNoteCancelButton = document.getElementById('new-note-cancel-button');
-    this.orderByFinishDateButton = document.getElementById('order-by-finish-date-button');
-    this.orderByCreationDateButton = document.getElementById('order-by-creation-date-button');
-    this.orderByImportanceButton = document.getElementById('order-by-importance-button');
-    this.showFinishedButton = document.getElementById('show-finished-button');
+    this.newNoteButton = document.querySelector('#new-note-button');
+    this.newNoteCancelButton = document.querySelector('#new-note-cancel-button');
+    this.orderByFinishDateButton = document.querySelector('#order-by-finish-date-button');
+    this.orderByCreationDateButton = document.querySelector('#order-by-creation-date-button');
+    this.orderByImportanceButton = document.querySelector('#order-by-importance-button');
+    this.showFinishedButton = document.querySelector('#show-finished-button');
   }
 
   registerHandlebarsHelper() {
@@ -56,10 +56,10 @@ export default class NotesController {
 
     this.newNoteButton.addEventListener('click', () => this.toggleNewNoteForm());
     this.newNoteCancelButton.addEventListener('click', () => this.toggleNewNoteForm());
-    this.newNoteForm.addEventListener('submit', (event) => this.addNewNote(event));
+    this.newNoteForm.addEventListener('click', (event) => this.addNewNote(event));
     document.addEventListener('click', (event) => this.changeImportance(event));
     document.addEventListener('keyup', (event) => this.adjustTextAreaSize(event));
-    this.notesContainer.addEventListener('click', (event) => this.switchBetweenEditAndNonEditMode(event));
+    this.notesContainer.addEventListener('click', (event) => this.toggleEditMode(event));
   }
 
   showFinished(event) {
@@ -108,15 +108,18 @@ export default class NotesController {
     }
   }
 
-  switchBetweenEditAndNonEditMode(event) {
-    const noteId = event.target.dataset.noteId;
+  toggleEditMode(event) {
+    const noteId = parseInt(event.target.dataset.noteId);
 
-    if (noteId !== undefined) {
+    if (!isNaN(noteId) && event.target.nodeName === 'BUTTON') {
       const noteElement = event.target.parentElement;
-      let singleNote = this.notesService.notes.filter((n) => n.id === parseInt(noteId))[0];
+      let singleNote = this.notesService.notes.find((n) => n.id === noteId);
       const node = document.createRange().createContextualFragment(this.editNoteTemplateCompiled({ note: singleNote }));
       noteElement.replaceWith(node);
-      node.getElementById('');
+      document.querySelector('#update-button-' + noteId).addEventListener('click', (event) => this.updateNote(event));
+      document
+        .querySelector('#cancel-button-' + noteId)
+        .addEventListener('click', () => this.showNotes(this.notesService.notes));
     }
   }
 
@@ -131,6 +134,20 @@ export default class NotesController {
       }
       event.target.innerText = newExclamationMarks;
     }
+  }
+
+  updateNote(event) {
+    event.preventDefault();
+    const formNode = event.target.parentNode;
+    this.notesService.updateNote(
+      parseInt(formNode.dataset.noteId),
+      formNode.querySelector('.title').value,
+      new Date(formNode.querySelector('.creation-date').innerText),
+      Boolean(formNode.querySelector('.status.editable').checked),
+      formNode.querySelector('.content').value,
+      new Date(formNode.querySelector('.finish-by-date > .editable').value)
+    );
+    this.showNotes(this.notesService.notes);
   }
 
   addNewNote(event) {
@@ -159,8 +176,9 @@ export default class NotesController {
   }
 
   adjustTextAreaSize(event) {
-    if (event.target.classList.contains('content') && event.target.classList.contains('editable'))
+    if (event.target.classList.contains('content') && event.target.classList.contains('editable')) {
       event.target.style.height = '1px';
-    event.target.style.height = 25 + event.target.scrollHeight + 'px';
+      event.target.style.height = 25 + event.target.scrollHeight + 'px';
+    }
   }
 }

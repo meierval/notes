@@ -117,7 +117,7 @@ main {
 
 .note.editable {
   grid-template-areas:
-    'importance title title status'
+    'importance title creation-date status'
     'content content content content'
     'finish-by-date finish-by-date save-button cancel-button';
 }

@@ -4,6 +4,7 @@ export default class NotesService {
   constructor(notesStorage) {
     this.storage = notesStorage;
     this.notes = [];
+    this.lastId = 2;
   }
 
   loadData() {
@@ -20,7 +21,7 @@ export default class NotesService {
 
   addNewNote(newNoteImportance, newNoteTitle, newNoteCreationDate, newNoteStatus, newNoteContent, newNoteFinishByDate) {
     const newNote = new Note(
-      null,
+      ++this.lastId,
       newNoteTitle,
       newNoteContent,
       newNoteImportance,
@@ -29,5 +30,21 @@ export default class NotesService {
       newNoteFinishByDate
     );
     this.notes.push(newNote);
+  }
+
+  updateNote(
+    id,
+    updatedNoteTitle,
+    updatedNoteCreationDate,
+    updatedNoteStatus,
+    updatedNoteContent,
+    updatedNoteFinishByDate
+  ) {
+    const existingNote = this.notes.find((n) => n.id === id);
+    existingNote.title = updatedNoteTitle;
+    existingNote.creationDate = updatedNoteCreationDate;
+    existingNote.status = updatedNoteStatus;
+    existingNote.content = updatedNoteContent;
+    existingNote.toBeFinishedByDate = updatedNoteFinishByDate;
   }
 }
