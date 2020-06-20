@@ -34,6 +34,7 @@ export default class NotesService {
 
   updateNote(
     id,
+    updatedNoteImportance,
     updatedNoteTitle,
     updatedNoteCreationDate,
     updatedNoteStatus,
@@ -46,5 +47,6 @@ export default class NotesService {
     existingNote.status = updatedNoteStatus;
     existingNote.content = updatedNoteContent;
     existingNote.toBeFinishedByDate = updatedNoteFinishByDate;
+    existingNote.importance = updatedNoteImportance;
   }
 }

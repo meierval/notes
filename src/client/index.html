@@ -53,7 +53,7 @@
         <label class="finish-by-date"
         >Finish by: <input class="editable" type="date" required value="{{formatDateForInput note.toBeFinishedByDate}}"
         /></label>
-        <button type="submit" class="save-button" id="update-button-{{note.id}}" data-action="addNote">Update</button>
+        <button type="submit" class="save-button" id="save-button-{{note.id}}">Update</button>
         <button type="button" class="cancel-button" id="cancel-button-{{note.id}}">Cancel</button>
       </form>
     </script>
@@ -61,7 +61,7 @@
   <body class="light-theme">
     <div class="top-line"></div>
     <header>
-      <button type="button" id="theme-button">💡</button>
+      <button type="button" id="theme-button"><img src="assets/images/moon.svg" /></button>
       <h1>NOTES</h1>
     </header>
 
@@ -73,35 +73,6 @@
       <button type="button" id="show-finished-button" data-is-active="false">Show finished</button>
     </nav>
     <main>
-      <form class="note editable" id="new-note-form">
-        <div class="importance editable" id="new-note-importance">!</div>
-        <input
-          class="title editable"
-          id="new-note-title"
-          type="text"
-          placeholder="Enter a title..."
-          minlength="3"
-          maxlength="30"
-          required
-        />
-        <div class="status">
-          <input type="checkbox" class="status editable" id="new-note-status" />
-          <label for="new-note-status"><span class="checkbox"></span></label>
-        </div>
-        <textarea
-          class="content editable"
-          id="new-note-content"
-          placeholder="Type something..."
-          minlength="1"
-          maxlength="500"
-        ></textarea>
-        <label class="finish-by-date"
-          >Finish by: <input class="editable" id="new-note-finish-by-date" type="date" required
-        /></label>
-        <button type="button" class="save-button" data-action="addNote">Add</button>
-        <button type="button" class="cancel-button" id="new-note-cancel-button">Cancel</button>
-      </form>
-
       <div id="notes-container"></div>
     </main>
 
