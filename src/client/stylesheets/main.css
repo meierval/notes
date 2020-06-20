@@ -104,7 +104,7 @@ main {
   grid-template-areas:
     'importance title creation-date status'
     'content content content content'
-    'finish-by-date finish-by-date save-button cancel-button';
+    'finish-by-date finish-by-date finish-by-date edit-button';
   background-color: var(--note-color);
   box-shadow: 1px 1px 1px 0 var(--secondary-color);
   margin-bottom: 30px;
@@ -113,6 +113,9 @@ main {
 
 .note#new-note-form {
   display: none;
+}
+
+.note.editable {
   grid-template-areas:
     'importance title title status'
     'content content content content'
@@ -134,7 +137,7 @@ main {
   background-color: transparent;
 }
 
-.note > .title#new-note-title {
+.note > .title.editable {
   font-family: var(--main-font);
   font-weight: 700;
   border-left-width: 0;
@@ -143,7 +146,7 @@ main {
   border-bottom: 2px solid transparent;
 }
 
-.note > .title#new-note-title:focus {
+.note > .title.editable:focus {
   outline: none;
   border-bottom-color: var(--yellow);
 }
@@ -168,7 +171,7 @@ main {
   border-radius: 7px;
   height: 1.9rem;
 }
-.note > .finish-by-date > #new-note-finish-by-date {
+.note > .finish-by-date > .editable {
   font-family: var(--main-font);
   font-size: var(--main-font-size);
   background-color: inherit;
@@ -192,7 +195,7 @@ main {
   background-color: transparent;
 }
 
-.note > .content#new-note-content {
+.note > .content.editable {
   outline: none;
   font-family: var(--main-font);
   font-weight: 400;
@@ -204,7 +207,7 @@ main {
   resize: none;
 }
 
-.note > .content#new-note-content:focus {
+.note > .content.editable:focus {
   outline: none;
   border-left-color: var(--yellow);
 }
@@ -221,6 +224,11 @@ button {
   grid-area: save-button;
   justify-self: right;
   margin-right: 10px;
+}
+
+.note > .edit-button {
+  grid-area: edit-button;
+  justify-self: right;
 }
 
 .note > .cancel-button {

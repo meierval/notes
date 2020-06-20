@@ -12,20 +12,50 @@
         <article class="note">
           <div class="importance">{{#times importance}}!{{/times}}</div>
           <h2 class="title">{{title}}</h2>
-          <div class="creation-date">{{formatDate creationDateTime}}</div>
+          <div class="creation-date">{{formatDate creationDate}}</div>
           <div class="status">
             <input type="checkbox" class="status" id="status-checkbox-{{id}}" {{#if isDone}}checked{{/if}} />
             <label for="status-checkbox-{{id}}"><span class="checkbox"></span> </label>
           </div>
           <p class="content">{{content}}</p>
           <div class="finish-by-date">Finish by: {{formatDate toBeFinishedByDate}}</div>
-          <button type="button" class="save-button" data-note-id="{{id}}">Save</button>
-          <button type="button" class="cancel-button">Cancel</button>
+          <button type="button" class="edit-button" data-note-id="{{id}}">Edit</button>
         </article>
       {{/each}}
       {{#unless notes.length}}
         No notes.
       {{/unless}}
+    </script>
+
+    <script id="edit-note-template" type="text/x-handlebars-template">
+      <form class="note editable">
+        <div class="importance editable">{{#times note.importance}}!{{/times}}</div>
+        <input
+                class="title editable"
+                type="text"
+                placeholder="Enter a title..."
+                minlength="3"
+                maxlength="30"
+                value="{{note.title}}"
+                required
+        />
+        <div class="creation-date" hidden>{{formatDate note.creationDate}}</div>
+        <div class="status">
+          <input type="checkbox" class="status editable" id="status-checkbox-{{note.id}}" {{#if note.isDone}}checked{{/if}} />
+          <label for="status-checkbox-{{note.id}}"><span class="checkbox"></span></label>
+        </div>
+        <textarea
+                class="content editable"
+                placeholder="Type something..."
+                minlength="1"
+                maxlength="500"
+        >{{note.content}}</textarea>
+        <label class="finish-by-date"
+        >Finish by: <input class="editable" type="date" required value="{{formatDateForInput note.toBeFinishedByDate}}"
+        /></label>
+        <button type="submit" class="save-button" data-action="addNote">Update</button>
+        <button type="button" class="cancel-button" id="new-note-cancel-button">Cancel</button>
+      </form>
     </script>
   </head>
   <body class="light-theme">
@@ -43,10 +73,10 @@
       <button type="button" id="show-finished-button" data-is-active="false">Show finished</button>
     </nav>
     <main>
-      <form class="note" id="new-note-form">
-        <div class="importance" id="new-note-importance">!</div>
+      <form class="note editable" id="new-note-form">
+        <div class="importance editable" id="new-note-importance">!</div>
         <input
-          class="title"
+          class="title editable"
           id="new-note-title"
           type="text"
           placeholder="Enter a title..."
@@ -55,18 +85,18 @@
           required
         />
         <div class="status">
-          <input type="checkbox" class="status" id="new-note-status" />
+          <input type="checkbox" class="status editable" id="new-note-status" />
           <label for="new-note-status"><span class="checkbox"></span></label>
         </div>
         <textarea
-          class="content"
+          class="content editable"
           id="new-note-content"
           placeholder="Type something..."
           minlength="1"
           maxlength="500"
         ></textarea>
         <label class="finish-by-date"
-          >Finish by: <input id="new-note-finish-by-date" type="datetime-local" required
+          >Finish by: <input class="editable" id="new-note-finish-by-date" type="date" required
         /></label>
         <button type="submit" class="save-button" data-action="addNote">Add</button>
         <button type="button" class="cancel-button" id="new-note-cancel-button">Cancel</button>

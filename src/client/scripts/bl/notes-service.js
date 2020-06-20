@@ -9,7 +9,7 @@ export default class NotesService {
   loadData() {
     this.notes = this.storage
       .getAll()
-      .map((n) => new Note(n.id, n.title, n.content, n.importance, n.isDone, n.creationDateTime, n.toBeFinishedByDate))
+      .map((n) => new Note(n.id, n.title, n.content, n.importance, n.isDone, n.creationDate, n.toBeFinishedByDate))
       .sort((a, b) => a.id - b.id);
 
     if (this.notes.length === 0) {

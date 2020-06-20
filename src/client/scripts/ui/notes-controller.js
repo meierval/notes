@@ -3,6 +3,7 @@ export default class NotesController {
     this.notesService = notesService;
 
     this.notesTemplateCompiled = Handlebars.compile(document.getElementById('notes-list-template').innerHTML);
+    this.editNoteTemplateCompiled = Handlebars.compile(document.getElementById('edit-note-template').innerHTML);
     this.registerHandlebarsHelper();
 
     this.notesContainer = document.getElementById('notes-container');
@@ -28,8 +29,18 @@ export default class NotesController {
       return accum;
     });
 
-    Handlebars.registerHelper('formatDate', function (datetime) {
-      return datetime.toLocaleString('de-CH');
+    Handlebars.registerHelper('formatDate', function (date) {
+      if (date instanceof Date) {
+        return `${date.getDay()}.${date.getMonth()}.${date.getFullYear()}`;
+      }
+      return date;
+    });
+
+    Handlebars.registerHelper('formatDateForInput', function (date) {
+      if (date instanceof Date) {
+        return date.toISOString().split('T')[0];
+      }
+      return date;
     });
   }
 
@@ -46,8 +57,9 @@ export default class NotesController {
     this.newNoteButton.addEventListener('click', () => this.toggleNewNoteForm());
     this.newNoteCancelButton.addEventListener('click', () => this.toggleNewNoteForm());
     this.newNoteForm.addEventListener('submit', (event) => this.addNewNote(event));
-    this.newNoteImportance.addEventListener('click', () => this.changeImportance());
-    this.newNoteContent.addEventListener('keyup', (event) => this.adjustTextAreaSize(event));
+    document.addEventListener('click', (event) => this.changeImportance(event));
+    document.addEventListener('keyup', (event) => this.adjustTextAreaSize(event));
+    this.notesContainer.addEventListener('click', (event) => this.switchBetweenEditAndNonEditMode(event));
   }
 
   showFinished(event) {
@@ -65,7 +77,7 @@ export default class NotesController {
   }
 
   orderByCreationDate(event) {
-    this.showOrderedNotes(event, (a, b) => b.creationDateTime - a.creationDateTime);
+    this.showOrderedNotes(event, (a, b) => b.creationDate - a.creationDate);
   }
 
   orderByFinishDate(event) {
@@ -96,15 +108,29 @@ export default class NotesController {
     }
   }
 
-  changeImportance() {
-    let currentImportance = this.countExclamationMarks(this.newNoteImportance.innerText);
-    let newImportance = (currentImportance + 1) % 4;
-    newImportance = newImportance === 0 ? newImportance + 1 : newImportance;
-    let newExclamationMarks = '';
-    for (let i = 0; i < newImportance; i++) {
-      newExclamationMarks = '!' + newExclamationMarks;
+  switchBetweenEditAndNonEditMode(event) {
+    const noteId = event.target.dataset.noteId;
+
+    if (noteId !== undefined) {
+      const noteElement = event.target.parentElement;
+      let singleNote = this.notesService.notes.filter((n) => n.id === parseInt(noteId))[0];
+      const node = document.createRange().createContextualFragment(this.editNoteTemplateCompiled({ note: singleNote }));
+      noteElement.replaceWith(node);
+      node.getElementById('');
     }
-    this.newNoteImportance.innerText = newExclamationMarks;
+  }
+
+  changeImportance(event) {
+    if (event.target.classList.contains('importance') && event.target.classList.contains('editable')) {
+      let currentImportance = this.countExclamationMarks(event.target.innerText);
+      let newImportance = (currentImportance + 1) % 4;
+      newImportance = newImportance === 0 ? newImportance + 1 : newImportance;
+      let newExclamationMarks = '';
+      for (let i = 0; i < newImportance; i++) {
+        newExclamationMarks = '!' + newExclamationMarks;
+      }
+      event.target.innerText = newExclamationMarks;
+    }
   }
 
   addNewNote(event) {
@@ -112,7 +138,7 @@ export default class NotesController {
     this.notesService.addNewNote(
       this.countExclamationMarks(this.newNoteImportance.innerText),
       this.newNoteTitle.value,
-      new Date(Date.now()),
+      new Date(Date.now().toDateString()),
       Boolean(this.newNoteStatus.checked),
       this.newNoteContent.value,
       new Date(this.newNoteFinishByDate.value)
@@ -133,7 +159,8 @@ export default class NotesController {
   }
 
   adjustTextAreaSize(event) {
-    event.target.style.height = '1px';
+    if (event.target.classList.contains('content') && event.target.classList.contains('editable'))
+      event.target.style.height = '1px';
     event.target.style.height = 25 + event.target.scrollHeight + 'px';
   }
 }
