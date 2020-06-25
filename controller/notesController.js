@@ -1,25 +1,42 @@
-import { orderStore } from '../services/orderStore';
-import { SecurityUtil } from '../utils/security';
+import { noteStore } from '../services/noteStore';
 
 export class NotesController {
   async getNotes(req, res) {
-    res.json((await orderStore.all(SecurityUtil.currentUser(req))) || []);
+    res.json((await noteStore.all()) || []);
   }
 
   async createNote(req, res) {
-    res.json(await orderStore.add(req.body.name, SecurityUtil.currentUser(req)));
+    const body = req.body;
+    const response = await noteStore.add(
+      body.title,
+      body.content,
+      body.importance,
+      body.isDone,
+      body.toBeFinishedByDate
+    );
+    res.json(response);
   }
 
   async updateNote(req, res) {
-    res.json(await orderStore.update(req.body.name, SecurityUtil.currentUser(req)));
+    const body = req.body;
+    res.json(
+      await noteStore.update(
+        req.params.id,
+        body.title,
+        body.content,
+        body.importance,
+        body.isDone,
+        body.toBeFinishedByDate
+      )
+    );
   }
 
   async showNote(req, res) {
-    res.json(await orderStore.get(req.params.id, SecurityUtil.currentUser(req)));
+    res.json(await noteStore.get(req.params.id));
   }
 
   async deleteNote(req, res) {
-    res.json(await orderStore.delete(req.params.id, SecurityUtil.currentUser(req)));
+    res.json(await noteStore.delete(req.params.id));
   }
 }
 

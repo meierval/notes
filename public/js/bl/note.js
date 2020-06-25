@@ -3,7 +3,7 @@ export default class Note {
     this.id = id;
     this.title = title || '';
     this.content = content || '';
-    this.importance = importance || 0;
+    this.importance = importance || 1;
     this.isDone = Boolean(isDone);
     this.creationDate = new Date(creationDate);
     this.toBeFinishedByDate = new Date(toBeFinishedByDate);
