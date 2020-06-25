@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'josefin';
-  src: url('../assets/fonts/josefin/JosefinSans-VariableFont_wght.ttf') format('truetype');
+  src: url('../fonts/josefin/JosefinSans-VariableFont_wght.ttf') format('truetype');
 }
 
 :root {
