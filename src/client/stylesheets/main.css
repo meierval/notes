@@ -97,7 +97,7 @@ main {
 
 .note {
   display: grid;
-  grid-template-columns: 35px 10fr auto auto;
+  grid-template-columns: 35px 10fr auto 45px;
   grid-template-rows: auto auto 20px;
   grid-row-gap: 20px;
   align-items: center;
@@ -215,9 +215,26 @@ main {
 button {
   font-size: 2rem;
   background-color: transparent;
-  border: 1px solid var(--main-color);
+  border: none;
   color: var(--main-color);
   padding: 5px;
+  outline: none;
+  text-align: center;
+  line-height: var(--main-font-size);
+}
+
+svg {
+  fill: var(--main-color);
+  width: var(--main-font-size);
+  height: var(--main-font-size);
+}
+
+svg > path.arrow-line,
+path.arrow-up,
+path.arrow-down,
+path.toggle-on,
+path.toggle-on {
+  display: none;
 }
 
 .note > .save-button {
@@ -241,11 +258,34 @@ nav {
   align-self: center;
   justify-self: center;
   margin-bottom: 10px;
+  display: grid;
+  width: 100%;
+  grid-template-areas:
+    'add add'
+    'order filter';
 }
 
 #new-note-button {
   background-color: var(--blue);
   color: var(--white);
+  width: 100%;
+}
+
+nav > .add {
+  justify-self: center;
+  align-self: center;
+  grid-area: add;
+  width: 33%;
+}
+
+nav > .order {
+  grid-area: order;
+  justify-self: left;
+}
+
+nav > .filter {
+  grid-area: filter;
+  justify-self: right;
 }
 
 footer {

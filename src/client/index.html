@@ -19,7 +19,12 @@
           </div>
           <p class="content">{{content}}</p>
           <div class="finish-by-date">Finish by: {{formatDate toBeFinishedByDate}}</div>
-          <button type="button" class="edit-button" data-note-id="{{id}}">Edit</button>
+          <button type="button" class="edit-button" data-note-id="{{id}}">
+            <svg xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>
+              <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>
+            </svg>
+          </button>
         </article>
       {{/each}}
       {{#unless notes.length}}
@@ -39,7 +44,7 @@
                 value="{{note.title}}"
                 required
         />
-        <div class="creation-date" readonly>{{formatDate note.creationDate}}</div>
+        <div class="creation-date">{{formatDate note.creationDate}}</div>
         <div class="status">
           <input type="checkbox" class="status editable" id="status-checkbox-{{note.id}}" {{#if note.isDone}}checked{{/if}} />
           <label for="status-checkbox-{{note.id}}"><span class="checkbox"></span></label>
@@ -53,31 +58,121 @@
         <label class="finish-by-date"
         >Finish by: <input class="editable" type="date" required value="{{formatDateForInput note.toBeFinishedByDate}}"
         /></label>
-        <button type="submit" class="save-button" id="save-button-{{note.id}}">Update</button>
-        <button type="button" class="cancel-button" id="cancel-button-{{note.id}}">Cancel</button>
+        <button type="submit" class="save-button" id="save-button-{{note.id}}">
+          <svg xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+        </svg></button>
+        <button type="button" class="cancel-button" id="cancel-button-{{note.id}}">
+          <svg xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
+            <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
+          </svg>
+        </button>
       </form>
     </script>
   </head>
   <body class="light-theme">
     <div class="top-line"></div>
     <header>
-      <button type="button" id="theme-button"><img src="assets/images/moon.svg" /></button>
+      <button type="button" id="theme-button">
+        <svg xmlns="http://www.w3.org/2000/svg">
+          <path
+            fill-rule="evenodd"
+            d="M14.53 10.53a7 7 0 0 1-9.058-9.058A7.003 7.003 0 0 0 8 15a7.002 7.002 0 0 0 6.53-4.47z"
+          />
+        </svg>
+      </button>
       <h1>NOTES</h1>
     </header>
 
     <nav>
-      <button type="button" id="order-by-finish-date-button" data-status="inactive">By finish Date</button>
-      <button type="button" id="order-by-creation-date-button" data-status="inactive">By creation Date</button>
-      <button type="button" id="order-by-importance-button" data-status="inactive">By importance</button>
-      <button type="button" id="new-note-button">+</button>
-      <button type="button" id="show-finished-button" data-is-active="false">Show finished</button>
+      <div class="add">
+        <button type="button" id="new-note-button">+</button>
+      </div>
+      <div class="order">
+        <button type="button" id="order-by-finish-date-button" data-status="inactive">
+          <svg xmlns="http://www.w3.org/2000/svg">
+            <path
+              class="arrow-line"
+              fill-rule="evenodd"
+              d="M8 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"
+            />
+            <path
+              class="arrow-up"
+              fill-rule="evenodd"
+              d="M7.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8 3.707 5.354 6.354a.5.5 0 1 1-.708-.708l3-3z"
+            />
+            <path
+              class="arrow-down"
+              fill-rule="evenodd"
+              d="M4.646 9.646a.5.5 0 0 1 .708 0L8 12.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z"
+            /></svg
+          >finish date</button
+        >/
+        <button type="button" id="order-by-creation-date-button" data-status="inactive">
+          <svg xmlns="http://www.w3.org/2000/svg">
+            <path
+              class="arrow-line"
+              fill-rule="evenodd"
+              d="M8 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"
+            />
+            <path
+              class="arrow-up"
+              fill-rule="evenodd"
+              d="M7.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8 3.707 5.354 6.354a.5.5 0 1 1-.708-.708l3-3z"
+            />
+            <path
+              class="arrow-down"
+              fill-rule="evenodd"
+              d="M4.646 9.646a.5.5 0 0 1 .708 0L8 12.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z"
+            /></svg
+          >creation date</button
+        >/
+        <button type="button" id="order-by-importance-button" data-status="inactive">
+          <svg xmlns="http://www.w3.org/2000/svg">
+            <path
+              class="arrow-line"
+              fill-rule="evenodd"
+              d="M8 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"
+            />
+            <path
+              class="arrow-up"
+              fill-rule="evenodd"
+              d="M7.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8 3.707 5.354 6.354a.5.5 0 1 1-.708-.708l3-3z"
+            />
+            <path
+              class="arrow-down"
+              fill-rule="evenodd"
+              d="M4.646 9.646a.5.5 0 0 1 .708 0L8 12.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z"
+            /></svg
+          >importance
+        </button>
+      </div>
+      <div class="filter">
+        <button type="button" id="show-finished-button" data-is-active="false">
+          finished
+          <svg xmlns="http://www.w3.org/2000/svg">
+            <path
+              class="toggle-off"
+              fill-rule="evenodd"
+              d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"
+            />
+            <path
+              class="toggle-on"
+              fill-rule="evenodd"
+              d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10H5zm6 9a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"
+            />
+          </svg>
+        </button>
+      </div>
     </nav>
+
     <main>
       <div id="notes-container"></div>
     </main>
 
     <footer>
-      <p>&lt/source&gt</p>
+      <p>&lt/notes&gt</p>
     </footer>
 
     <script src="scripts/lib/handlebars.min-v4.7.6.js" defer></script>

@@ -76,25 +76,43 @@ export default class NotesController {
 
   showOrderedNotes(event, compareFunction) {
     const status = event.target.dataset.status;
+    const arrowLine = event.target.querySelector('.arrow-line');
+    const arrowUp = event.target.querySelector('.arrow-up');
+    const arrowDown = event.target.querySelector('.arrow-down');
     if (status === 'inactive') {
       event.target.dataset.status = 'active-desc';
       this.showNotes(this.notesService.notes.sort((a, b) => a.id - b.id));
+      arrowDown.style.display = 'inline';
+      arrowLine.style.display = 'inline';
+      arrowUp.style.display = 'none';
     } else if (status === 'active-desc') {
       event.target.dataset.status = 'active-asc';
       this.showNotes(this.notesService.notes.sort(compareFunction).reverse());
+      arrowDown.style.display = 'none';
+      arrowLine.style.display = 'inline';
+      arrowUp.style.display = 'inline';
     } else if (status === 'active-asc') {
       event.target.dataset.status = 'inactive';
       this.showNotes(this.notesService.notes.sort(compareFunction));
+      arrowDown.style.display = 'none';
+      arrowLine.style.display = 'none';
+      arrowUp.style.display = 'none';
     }
   }
 
   showFinished(event) {
+    const toggleOn = event.target.querySelector('.toggle-on');
+    const toggleOff = event.target.querySelector('.toggle-off');
     if (event.target.dataset.isActive === 'true') {
       this.showNotes(this.notesService.notes);
       this.showFinishedButton.dataset.isActive = 'false';
+      toggleOff.style.display = 'inline';
+      toggleOn.style.display = 'none';
     } else {
       this.showNotes(this.notesService.notes.filter((n) => n.isDone));
       this.showFinishedButton.dataset.isActive = 'true';
+      toggleOff.style.display = 'none';
+      toggleOn.style.display = 'inline';
     }
   }
 
