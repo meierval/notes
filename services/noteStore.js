@@ -22,14 +22,21 @@ export class NotesStore {
   }
 
   async update(id, title, content, importance, isDone, toBeFinishedByDate) {
-    return await this.db.update({
-      _id: id,
-      title: title,
-      content: content,
-      importance: importance,
-      isDone: isDone,
-      toBeFinishedByDate: toBeFinishedByDate,
-    });
+    return await this.db.update(
+      {
+        _id: id,
+      },
+      {
+        $set: {
+          title: title,
+          content: content,
+          importance: importance,
+          isDone: isDone,
+          toBeFinishedByDate: new Date(toBeFinishedByDate),
+        },
+      },
+      {}
+    );
   }
 
   async delete(id) {
