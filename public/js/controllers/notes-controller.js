@@ -136,9 +136,9 @@ export default class NotesController {
   }
 
   toggleEditMode(event) {
-    const noteId = parseInt(event.target.dataset.noteId);
+    const noteId = event.target.dataset.noteId;
 
-    if (!isNaN(noteId) && event.target.nodeName === 'BUTTON') {
+    if (noteId !== undefined && event.target.nodeName === 'BUTTON') {
       const noteElement = event.target.parentElement;
       let singleNote = this.notesService.notes.find((n) => n.id === noteId);
       const node = document.createRange().createContextualFragment(this.editNoteTemplateCompiled({ note: singleNote }));
@@ -149,12 +149,13 @@ export default class NotesController {
         .addEventListener('click', () => this.showNotes(this.notesService.notes));
     }
   }
+
   updateNote(event) {
     event.preventDefault();
     const formNode = event.target.parentNode;
     this.notesService
       .updateNote(
-        parseInt(formNode.dataset.noteId),
+        formNode.dataset.noteId,
         this.countExclamationMarks(formNode.querySelector('.importance').innerText),
         formNode.querySelector('.title').value,
         new Date(formNode.querySelector('.creation-date').innerText),

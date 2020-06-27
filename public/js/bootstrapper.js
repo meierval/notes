@@ -4,7 +4,6 @@ import HttpService from './services/http-service.js';
 
 class Bootstrapper {
   static start() {
-    console.log('starting...');
     const httpService = new HttpService();
     const notesService = new NotesService(httpService);
     new NotesController(notesService).notesAction();

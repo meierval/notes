@@ -223,6 +223,11 @@ button {
   line-height: var(--main-font-size);
 }
 
+/* Prevents elements inside buttons from emitting click events (target will always be the button)*/
+button > * {
+  pointer-events: none;
+}
+
 svg {
   fill: var(--main-color);
   width: var(--main-font-size);
