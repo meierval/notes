@@ -82,28 +82,42 @@ export default class NotesController {
 
   showOrderedNotes(event, compareFunction) {
     const status = event.target.dataset.status;
+    this.clearAllSorting(this.orderByCreationDateButton);
+    this.clearAllSorting(this.orderByFinishDateButton);
+    this.clearAllSorting(this.orderByImportanceButton);
     const arrowLine = event.target.querySelector('.arrow-line');
     const arrowUp = event.target.querySelector('.arrow-up');
     const arrowDown = event.target.querySelector('.arrow-down');
     if (status === 'inactive') {
       event.target.dataset.status = 'active-desc';
-      this.showNotes(this.notesService.notes.sort((a, b) => a.id - b.id));
+      event.target.style.fontWeight = 'bold';
+      this.showNotes(this.notesService.notes.sort(compareFunction));
       arrowDown.style.display = 'inline';
       arrowLine.style.display = 'inline';
       arrowUp.style.display = 'none';
     } else if (status === 'active-desc') {
       event.target.dataset.status = 'active-asc';
+      event.target.style.fontWeight = 'bold';
       this.showNotes(this.notesService.notes.sort(compareFunction).reverse());
       arrowDown.style.display = 'none';
       arrowLine.style.display = 'inline';
       arrowUp.style.display = 'inline';
     } else if (status === 'active-asc') {
       event.target.dataset.status = 'inactive';
-      this.showNotes(this.notesService.notes.sort(compareFunction));
+      event.target.style.fontWeight = 'normal ';
+      this.showNotes(this.notesService.notes.sort((a, b) => a.creationDate - b.creationDate));
       arrowDown.style.display = 'none';
       arrowLine.style.display = 'none';
       arrowUp.style.display = 'none';
     }
+  }
+
+  clearAllSorting(button) {
+    button.dataset.status = 'inactive';
+    button.style.fontWeight = 'normal';
+    button.querySelector('.arrow-line').style.display = 'none';
+    button.querySelector('.arrow-up').style.display = 'none';
+    button.querySelector('.arrow-down').style.display = 'none';
   }
 
   showFinished(event) {

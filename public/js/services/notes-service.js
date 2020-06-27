@@ -10,7 +10,7 @@ export default class NotesService {
     const notes = await this.httpService.ajax('GET', '/notes', undefined);
     this.notes = notes
       .map((n) => new Note(n._id, n.title, n.content, n.importance, n.isDone, n.creationDate, n.toBeFinishedByDate))
-      .sort((a, b) => a.id - b.id);
+      .sort((a, b) => a.creationDate - b.creationDate);
   }
 
   async addNewNote(
