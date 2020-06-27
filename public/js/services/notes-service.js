@@ -7,8 +7,8 @@ export default class NotesService {
   }
 
   async getNotes() {
-    return await this.httpService
-      .ajax('GET', '/notes', undefined)
+    const notes = await this.httpService.ajax('GET', '/notes', undefined);
+    this.notes = notes
       .map((n) => new Note(n._id, n.title, n.content, n.importance, n.isDone, n.creationDate, n.toBeFinishedByDate))
       .sort((a, b) => a.id - b.id);
   }
@@ -30,7 +30,7 @@ export default class NotesService {
       newNoteCreationDate,
       newNoteFinishByDate
     );
-    return await this.httpService.ajax('POST', '/notes', newNote);
+    await this.httpService.ajax('POST', '/notes', newNote);
   }
 
   async updateNote(
@@ -51,6 +51,6 @@ export default class NotesService {
       updatedNoteCreationDate,
       updatedNoteFinishByDate
     );
-    return await this.httpService.ajax('PUT', `/notes/${id}`, note);
+    await this.httpService.ajax('PUT', `/notes/${id}`, note);
   }
 }

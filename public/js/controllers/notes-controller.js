@@ -41,9 +41,10 @@ export default class NotesController {
   }
 
   notesAction() {
-    this.notesService.getNotes();
-    this.showNotes(this.notesService.notes);
-    this.initEventHandlers();
+    this.notesService.getNotes().then(() => {
+      this.showNotes(this.notesService.notes);
+      this.initEventHandlers();
+    });
   }
 
   showNotes(notes) {
@@ -151,31 +152,37 @@ export default class NotesController {
   updateNote(event) {
     event.preventDefault();
     const formNode = event.target.parentNode;
-    this.notesService.updateNote(
-      parseInt(formNode.dataset.noteId),
-      this.countExclamationMarks(formNode.querySelector('.importance').innerText),
-      formNode.querySelector('.title').value,
-      new Date(formNode.querySelector('.creation-date').innerText),
-      Boolean(formNode.querySelector('.status.editable').checked),
-      formNode.querySelector('.content').value,
-      new Date(formNode.querySelector('.finish-by-date > .editable').value)
-    );
-    this.showNotes(this.notesService.notes);
+    this.notesService
+      .updateNote(
+        parseInt(formNode.dataset.noteId),
+        this.countExclamationMarks(formNode.querySelector('.importance').innerText),
+        formNode.querySelector('.title').value,
+        new Date(formNode.querySelector('.creation-date').innerText),
+        Boolean(formNode.querySelector('.status.editable').checked),
+        formNode.querySelector('.content').value,
+        new Date(formNode.querySelector('.finish-by-date > .editable').value)
+      )
+      .then(() => {
+        this.showNotes(this.notesService.notes);
+      });
   }
 
   addNewNote(event) {
     event.preventDefault();
-    const formNode = event.target.parentNode;
-    this.notesService.addNewNote(
-      this.countExclamationMarks(formNode.querySelector('.importance').innerText),
-      formNode.querySelector('.title').value,
-      new Date(),
-      Boolean(formNode.querySelector('.status.editable').checked),
-      formNode.querySelector('.content').value,
-      new Date(formNode.querySelector('.finish-by-date > .editable').value)
-    );
-    this.showNotes(this.notesService.notes);
-    this.toggleNewNoteForm();
+    const formNode = event.currentTarget.parentNode;
+    this.notesService
+      .addNewNote(
+        this.countExclamationMarks(formNode.querySelector('.importance').innerText),
+        formNode.querySelector('.title').value,
+        new Date(),
+        Boolean(formNode.querySelector('.status.editable').checked),
+        formNode.querySelector('.content').value,
+        new Date(formNode.querySelector('.finish-by-date > .editable').value)
+      )
+      .then(() => {
+        this.showNotes(this.notesService.notes);
+        this.toggleNewNoteForm();
+      });
   }
 
   changeImportance(event) {
