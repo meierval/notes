@@ -1,15 +1,5 @@
 import Datastore from 'nedb-promise';
-
-export class Note {
-  constructor(title, content, importance, isDone, toBeFinishedByDate) {
-    this.title = title || '';
-    this.content = content || '';
-    this.importance = importance || 1;
-    this.isDone = Boolean(isDone);
-    this.creationDate = new Date();
-    this.toBeFinishedByDate = new Date(toBeFinishedByDate);
-  }
-}
+import { Note } from './note';
 
 export class NotesStore {
   constructor(db) {
@@ -21,7 +11,9 @@ export class NotesStore {
     return await this.db.insert(note);
   }
 
-  async update(id, title, content, importance, isDone, toBeFinishedByDate) {
+  async update(id, title, content, importance, isDone, toBeFinishedBy) {
+    const toBeFinishedByDate = new Date(toBeFinishedBy);
+    toBeFinishedByDate.setHours(0, 0, 0, 0);
     return await this.db.update(
       {
         _id: id,
@@ -32,7 +24,7 @@ export class NotesStore {
           content: content,
           importance: importance,
           isDone: isDone,
-          toBeFinishedByDate: new Date(toBeFinishedByDate),
+          toBeFinishedByDate: toBeFinishedByDate,
         },
       },
       {}
