@@ -16,6 +16,8 @@ export default class NotesController {
     this.orderByCreationDateButton = document.querySelector('#order-by-creation-date-button');
     this.orderByImportanceButton = document.querySelector('#order-by-importance-button');
     this.showFinishedButton = document.querySelector('#show-finished-button');
+
+    this.themeButton = document.querySelector('#theme-button');
   }
 
   registerHandlebarsHelper() {
@@ -61,6 +63,10 @@ export default class NotesController {
     document.addEventListener('click', (event) => this.changeImportance(event));
     document.addEventListener('keyup', (event) => this.adjustTextAreaSize(event));
     this.notesContainer.addEventListener('click', (event) => this.toggleEditMode(event));
+
+    this.themeButton.addEventListener('click', () => {
+      document.body.classList.toggle('dark-theme');
+    });
   }
 
   orderByImportance(event) {
