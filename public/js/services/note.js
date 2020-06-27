@@ -8,16 +8,4 @@ export default class Note {
     this.creationDate = new Date(creationDate);
     this.toBeFinishedByDate = new Date(toBeFinishedByDate);
   }
-
-  toJSON() {
-    return {
-      id: this.id,
-      title: this.title,
-      content: this.content,
-      importance: this.importance,
-      isDone: this.isDone,
-      creationDate: this.creationDate.toJSON(),
-      toBeFinishedByDate: this.toBeFinishedByDate.toJSON(),
-    };
-  }
 }

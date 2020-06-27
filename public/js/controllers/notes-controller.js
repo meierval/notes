@@ -1,4 +1,4 @@
-import Note from '../bl/note.js';
+import Note from '../services/note.js';
 // TODO: remove import!
 
 export default class NotesController {
@@ -41,7 +41,7 @@ export default class NotesController {
   }
 
   notesAction() {
-    this.notesService.loadData();
+    this.notesService.getNotes();
     this.showNotes(this.notesService.notes);
     this.initEventHandlers();
   }
