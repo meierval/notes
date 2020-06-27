@@ -1,5 +1,4 @@
 import Note from '../services/note.js';
-// TODO: remove import!
 
 export default class NotesController {
   constructor(notesService) {
@@ -29,7 +28,7 @@ export default class NotesController {
 
     Handlebars.registerHelper('formatDate', function (date) {
       if (date instanceof Date) {
-        return `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
+        return date.toLocaleString('de-CH').split(',')[0];
       }
       return date;
     });
