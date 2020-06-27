@@ -14,7 +14,7 @@ export class NotesStore {
   async update(id, title, content, importance, isDone, toBeFinishedBy) {
     const toBeFinishedByDate = new Date(toBeFinishedBy);
     toBeFinishedByDate.setHours(0, 0, 0, 0);
-    return await this.db.update(
+    await this.db.update(
       {
         _id: id,
       },
@@ -29,6 +29,7 @@ export class NotesStore {
       },
       {}
     );
+    return await this.get(id);
   }
 
   async delete(id) {
