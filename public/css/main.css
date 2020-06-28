@@ -142,6 +142,7 @@ main {
 
 .note > .title.editable {
   font-family: var(--main-font);
+  color: var(--main-color);
   font-weight: 700;
   border-left-width: 0;
   border-right-width: 0;
@@ -202,6 +203,7 @@ main {
 .note > .content.editable {
   outline: none;
   font-family: var(--main-font);
+  color: var(--main-color);
   font-weight: 400;
   font-size: var(--main-font-size);
   border-bottom-width: 0;
