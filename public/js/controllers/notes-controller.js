@@ -60,7 +60,7 @@ export default class NotesController {
 
     this.newNoteButton.addEventListener('click', () => this.toggleNewNoteForm());
     document.addEventListener('click', (event) => this.changeImportance(event));
-    document.addEventListener('keyup', (event) => this.adjustTextAreaSize(event));
+    document.addEventListener('keyup', (event) => this.adjustTextAreaSize(event.target));
     this.notesContainer.addEventListener('click', (event) => this.toggleEditMode(event));
 
     this.themeButton.addEventListener('click', () => {
@@ -162,6 +162,7 @@ export default class NotesController {
       let singleNote = this.notesService.notes.find((n) => n.id === noteId);
       const node = document.createRange().createContextualFragment(this.editNoteTemplateCompiled({ note: singleNote }));
       noteElement.replaceWith(node);
+      this.adjustTextAreaSize(document.querySelector('#content-' + noteId));
       document.querySelector('#save-button-' + noteId).addEventListener('click', (event) => this.updateNote(event));
       document
         .querySelector('#cancel-button-' + noteId)
@@ -222,10 +223,10 @@ export default class NotesController {
     return (text || '').split('!').length - 1;
   }
 
-  adjustTextAreaSize(event) {
-    if (event.target.classList.contains('content') && event.target.classList.contains('editable')) {
-      event.target.style.height = '1px';
-      event.target.style.height = 25 + event.target.scrollHeight + 'px';
+  adjustTextAreaSize(textArea) {
+    if (textArea.classList.contains('content') && textArea.classList.contains('editable')) {
+      textArea.style.height = '1px';
+      textArea.style.height = 25 + textArea.scrollHeight + 'px';
     }
   }
 }
