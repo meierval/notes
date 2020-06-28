@@ -12,6 +12,12 @@ You will need the following:
 
 ### Installation
 
+Run the following command:
+
+`npm install`
+
 ### Running it
 
-### Running the tests
+Start it with:
+
+`npm start`
