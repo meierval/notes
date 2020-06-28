@@ -242,6 +242,10 @@ path.toggle-on {
   display: none;
 }
 
+.note > button {
+  width: 100%;
+}
+
 .note > .save-button {
   grid-area: save-button;
   justify-self: right;

@@ -14,7 +14,7 @@
           <h2 class="title">{{title}}</h2>
           <div class="creation-date">{{formatDate creationDate}}</div>
           <div class="status">
-            <input type="checkbox" class="status" id="status-checkbox-{{id}}" {{#if isDone}}checked{{/if}} />
+            <input type="checkbox" readonly class="status" id="status-checkbox-{{id}}" {{#if isDone}}checked{{/if}} />
             <label for="status-checkbox-{{id}}"><span class="checkbox"></span> </label>
           </div>
           <p class="content">{{content}}</p>
@@ -34,7 +34,7 @@
 
     <script id="edit-note-template" type="text/x-handlebars-template">
       <form class="note editable" data-note-id="{{note.id}}">
-        <div class="importance editable">{{#times note.importance}}!{{/times}}</div>
+        <button type="button" class="importance editable">{{#times note.importance}}!{{/times}}</button>
         <input
                 class="title editable"
                 type="text"
