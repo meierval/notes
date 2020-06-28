@@ -42,7 +42,7 @@ body {
   display: grid;
   grid-template-columns:
     minmax(10px, auto)
-    minmax(1000px, 1400px)
+    minmax(600px, 1400px)
     minmax(10px, auto);
   grid-template-rows: 10px auto auto auto auto;
   grid-column-gap: 0;

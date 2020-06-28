@@ -39,8 +39,8 @@
                 class="title editable"
                 type="text"
                 placeholder="Enter a title..."
-                minlength="3"
-                maxlength="30"
+                minlength="2"
+                maxlength="70"
                 value="{{note.title}}"
                 required
         />
@@ -54,7 +54,8 @@
                 id="content-{{note.id}}"
                 placeholder="Type something..."
                 minlength="1"
-                maxlength="500"
+                maxlength="700"
+                required
         >{{note.content}}</textarea>
         <label class="finish-by-date"
         >Finish by: <input class="editable" type="date" required value="{{formatDateForInput note.toBeFinishedByDate}}"

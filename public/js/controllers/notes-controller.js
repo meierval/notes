@@ -150,7 +150,9 @@ export default class NotesController {
       mainElement.insertBefore(node, mainElement.firstChild);
 
       document.querySelector('#cancel-button-' + noteId).addEventListener('click', () => this.toggleNewNoteForm());
-      document.querySelector('#save-button-' + noteId).addEventListener('click', (event) => this.addNewNote(event));
+      document
+        .querySelector('#save-button-' + noteId)
+        .parentElement.addEventListener('submit', (event) => this.addNewNote(event));
     }
   }
 
@@ -163,7 +165,9 @@ export default class NotesController {
       const node = document.createRange().createContextualFragment(this.editNoteTemplateCompiled({ note: singleNote }));
       noteElement.replaceWith(node);
       this.adjustTextAreaSize(document.querySelector('#content-' + noteId));
-      document.querySelector('#save-button-' + noteId).addEventListener('click', (event) => this.updateNote(event));
+      document
+        .querySelector('#save-button-' + noteId)
+        .parentElement.addEventListener('submit', (event) => this.updateNote(event));
       document
         .querySelector('#cancel-button-' + noteId)
         .addEventListener('click', () => this.showNotes(this.notesService.notes));
@@ -172,7 +176,9 @@ export default class NotesController {
 
   updateNote(event) {
     event.preventDefault();
-    const formNode = event.target.parentNode;
+    const formNode = event.target;
+    formNode.checkValidity();
+    formNode.reportValidity();
     this.notesService
       .updateNote(
         formNode.dataset.noteId,
@@ -190,7 +196,9 @@ export default class NotesController {
 
   addNewNote(event) {
     event.preventDefault();
-    const formNode = event.currentTarget.parentNode;
+    const formNode = event.currentTarget;
+    formNode.checkValidity();
+    formNode.reportValidity();
     this.notesService
       .addNewNote(
         this.countExclamationMarks(formNode.querySelector('.importance').innerText),
