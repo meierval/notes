@@ -6,72 +6,6 @@
 
     <link rel="icon" href="images/favicon.ico" />
     <link rel="stylesheet" href="css/main.css" />
-
-    <script id="notes-list-template" type="text/x-handlebars-template">
-      {{#each notes}}
-        <article class="note">
-          <div class="importance">{{#times importance}}!{{/times}}</div>
-          <h2 class="title">{{title}}</h2>
-          <div class="creation-date">{{formatDate creationDate}}</div>
-          <div class="status">
-            <input type="checkbox" readonly class="status" id="status-checkbox-{{id}}" {{#if isDone}}checked{{/if}} />
-            <label for="status-checkbox-{{id}}"><span class="checkbox"></span> </label>
-          </div>
-          <p class="content">{{content}}</p>
-          <div class="finish-by-date">Finish by: {{formatDate toBeFinishedByDate}}</div>
-          <button type="button" class="edit-button" data-note-id="{{id}}">
-            <svg xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>
-              <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>
-            </svg>
-          </button>
-        </article>
-      {{/each}}
-      {{#unless notes.length}}
-        No notes.
-      {{/unless}}
-    </script>
-
-    <script id="edit-note-template" type="text/x-handlebars-template">
-      <form class="note editable" data-note-id="{{note.id}}">
-        <button type="button" class="importance editable">{{#times note.importance}}!{{/times}}</button>
-        <input
-                class="title editable"
-                type="text"
-                placeholder="Enter a title..."
-                minlength="2"
-                maxlength="70"
-                value="{{note.title}}"
-                required
-        />
-        <div class="creation-date">{{formatDate note.creationDate}}</div>
-        <div class="status">
-          <input type="checkbox" class="status editable" id="status-checkbox-{{note.id}}" {{#if note.isDone}}checked{{/if}} />
-          <label for="status-checkbox-{{note.id}}"><span class="checkbox"></span></label>
-        </div>
-        <textarea
-                class="content editable"
-                id="content-{{note.id}}"
-                placeholder="Type something..."
-                minlength="1"
-                maxlength="700"
-                required
-        >{{note.content}}</textarea>
-        <label class="finish-by-date"
-        >Finish by: <input class="editable" type="date" required value="{{formatDateForInput note.toBeFinishedByDate}}"
-        /></label>
-        <button type="submit" class="save-button" id="save-button-{{note.id}}">
-          <svg xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-        </svg></button>
-        <button type="button" class="cancel-button" id="cancel-button-{{note.id}}">
-          <svg xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
-            <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
-          </svg>
-        </button>
-      </form>
-    </script>
   </head>
   <body class="light-theme">
     <div class="top-line"></div>
@@ -176,6 +110,8 @@
     <footer></footer>
 
     <script src="js/libs/handlebars.min-v4.7.6.js" defer></script>
+    <script src="templates/editnote.precompiled.js" defer></script>
+    <script src="templates/noteslist.precompiled.js" defer></script>
     <script src="js/bootstrapper.js" type="module"></script>
   </body>
 </html>

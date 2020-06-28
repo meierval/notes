@@ -4,8 +4,8 @@ export default class NotesController {
   constructor(notesService) {
     this.notesService = notesService;
 
-    this.notesTemplateCompiled = Handlebars.compile(document.querySelector('#notes-list-template').innerHTML);
-    this.editNoteTemplateCompiled = Handlebars.compile(document.querySelector('#edit-note-template').innerHTML);
+    this.notesTemplateCompiled = Handlebars.templates.noteslist;
+    this.editNoteTemplateCompiled = Handlebars.templates.editnote;
     this.registerHandlebarsHelper();
 
     this.notesContainer = document.querySelector('#notes-container');
