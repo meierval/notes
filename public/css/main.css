@@ -98,7 +98,7 @@ main {
 .note {
   display: grid;
   grid-template-columns: 35px 10fr auto 45px;
-  grid-template-rows: auto auto 20px;
+  grid-template-rows: 56px auto 20px;
   grid-row-gap: 20px;
   align-items: center;
   grid-template-areas:
